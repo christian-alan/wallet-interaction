@@ -1,0 +1,203 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   Design tokens. Change a value here and it changes everywhere.
+   ------------------------------------------------------------------ */
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+
+  /* Page and wallet leather (the "Ink" material) */
+  --color-ground: #c8cad0;
+  --color-leather-back: #282a31;
+  --color-leather-front: #111216;
+  --color-leather-edge: rgb(255 255 255 / 0.14);
+  --color-leather-stitch: rgb(255 255 255 / 0.24);
+
+  /* Text and controls that sit on the pocket */
+  --color-pocket: #f1f1f3;
+  --color-pocket-muted: #a2a5ae;
+  --color-chip: rgb(255 255 255 / 0.12);
+  --color-chip-hover: rgb(255 255 255 / 0.2);
+  --color-primary: #f1f1f3;
+  --color-primary-hover: #ffffff;
+  --color-on-primary: #15161a;
+  --color-knob: #d9dae0;
+  --color-danger: #ff9c8c;
+  --color-danger-wash: rgb(255 156 140 / 0.2);
+  --color-destructive: #c4281c;
+  --color-destructive-hover: #ab2116;
+
+  /* Motion */
+  --ease-spring: cubic-bezier(0.3, 1.3, 0.4, 1);
+  --ease-thumb: cubic-bezier(0.3, 1.35, 0.4, 1);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ------------------------------------------------------------------
+   Surface recipes that are too long to read as inline class lists.
+   Each is a normal Tailwind utility: use it in className like any other.
+   ------------------------------------------------------------------ */
+
+/* Wallet back panel: drop shadow, top edge light, inner shading */
+@utility leather-back {
+  box-shadow:
+    0 46px 70px -28px rgb(0 0 0 / 0.45),
+    0 10px 22px rgb(0 0 0 / 0.12),
+    inset 0 1px 0 var(--color-leather-edge),
+    inset 0 70px 80px -50px rgb(0 0 0 / 0.22);
+}
+
+/* Front pocket: shadow it casts on the cards and on the back panel */
+@utility pocket-shadow {
+  filter: drop-shadow(0 -8px 12px rgb(0 0 0 / 0.22)) drop-shadow(0 2px 3px rgb(0 0 0 / 0.3));
+}
+
+/* Glass segmented control */
+@utility glass-track {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.5) 0%, rgb(255 255 255 / 0.16) 100%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.85),
+    inset 0 -1px 0 rgb(255 255 255 / 0.3),
+    inset 0 0 0 1px rgb(255 255 255 / 0.3),
+    0 10px 26px -8px rgb(0 0 0 / 0.28),
+    0 1px 2px rgb(0 0 0 / 0.08);
+}
+
+@utility glass-thumb {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.96) 0%, rgb(255 255 255 / 0.62) 100%);
+  -webkit-backdrop-filter: blur(10px) saturate(200%);
+  backdrop-filter: blur(10px) saturate(200%);
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    inset 0 -3px 6px rgb(255 255 255 / 0.7),
+    inset 0 0 0 1px rgb(255 255 255 / 0.55),
+    0 4px 12px -2px rgb(0 0 0 / 0.22),
+    0 0 0 0.5px rgb(0 0 0 / 0.06);
+}
+
+/* "Add card" pill: recessed ring, top light, drop shadow */
+@utility add-pill {
+  box-shadow:
+    0 0 0 5px rgb(0 0 0 / 0.3),
+    inset 0 1px 0 rgb(255 255 255 / 0.16),
+    0 8px 16px -6px rgb(0 0 0 / 0.4);
+}
+
+@utility add-knob {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.18),
+    0 3px 6px rgb(0 0 0 / 0.35);
+}
+
+/* Card faces */
+@utility card-face {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  backface-visibility: hidden;
+  box-shadow: inset 0 1.5px 0 rgb(255 255 255 / 0.5);
+}
+
+/* Metal chips */
+@utility chip-metal {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 46px;
+  height: 36px;
+  overflow: hidden;
+  border-radius: 7px;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.8),
+    inset 0 -1px 0 rgb(0 0 0 / 0.2),
+    0 1px 2px rgb(0 0 0 / 0.28);
+}
+
+@utility chip-gold {
+  background: linear-gradient(135deg, #f6e3a1 0%, #d4a93f 30%, #fbefc0 48%, #c4932b 70%, #e9cb73 100%);
+}
+
+@utility chip-silver {
+  background: linear-gradient(135deg, #f4f6f9 0%, #b9c0cb 30%, #ffffff 48%, #9ea7b4 70%, #d9dee5 100%);
+}
+
+@utility chip-sheen {
+  background: linear-gradient(115deg, rgb(255 255 255 / 0) 28%, rgb(255 255 255 / 0.6) 44%, rgb(255 255 255 / 0) 58%);
+}
+
+/* Card back details */
+@utility mag-stripe {
+  background: #0e0e10;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    inset 0 -1px 0 rgb(255 255 255 / 0.06);
+}
+
+@utility signature-panel {
+  background-color: #f1efe8;
+  background-image: repeating-linear-gradient(115deg, rgb(0 0 0 / 0.07) 0 1px, transparent 1px 7px);
+}
+
+@utility hologram {
+  background: conic-gradient(from 210deg, #9be7ff, #c9a7ff, #ffd6a0, #a8f0c6, #9be7ff);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.65),
+    0 1px 2px rgb(0 0 0 / 0.2);
+}
+
+@utility hologram-silver {
+  background: conic-gradient(from 200deg, #eef2f7, #aee7d8, #c9c5f2, #f6f8fa, #b4becc, #eef2f7);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.7),
+    0 1px 3px rgb(0 0 0 / 0.3);
+}
+
+/* Light effects on the card surface */
+@utility card-sweep {
+  background: linear-gradient(
+    90deg,
+    rgb(255 255 255 / 0) 0%,
+    rgb(255 255 255 / 0.1) 30%,
+    rgb(255 255 255 / 0.36) 50%,
+    rgb(255 255 255 / 0.1) 70%,
+    rgb(255 255 255 / 0) 100%
+  );
+  mix-blend-mode: screen;
+}
+
+/* --gx / --gy are set by the card as the pointer moves (see Card.jsx) */
+@utility card-glare {
+  background: radial-gradient(
+    circle at var(--gx, 50%) var(--gy, 30%),
+    rgb(255 255 255 / 0.36) 0%,
+    rgb(255 255 255 / 0.12) 28%,
+    rgb(255 255 255 / 0) 58%
+  );
+  mix-blend-mode: screen;
+}
+
+@utility card-glare-back {
+  background: radial-gradient(
+    circle at calc(100% - var(--gx, 50%)) var(--gy, 30%),
+    rgb(255 255 255 / 0.36) 0%,
+    rgb(255 255 255 / 0.12) 28%,
+    rgb(255 255 255 / 0) 58%
+  );
+  mix-blend-mode: screen;
+}
