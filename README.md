@@ -1,6 +1,12 @@
-# Wallet
+# Wallet interaction
 
 A leather wallet holding four payment cards, built with React, Vite and Tailwind CSS.
+
+<p align="center">
+  <img src="docs/demo.webp" alt="The wallet in use: cards fan up on hover, a card is pulled out and flipped, a card is added, and the wallet switches from horizontal to vertical" width="800">
+</p>
+
+<p align="center"><a href="docs/demo.mp4">Watch the demo as a video (MP4)</a></p>
 
 - Hover the wallet and the cards fan up; hover a card and it lifts.
 - Click a card to pull it out; click it again to put it back.
@@ -9,6 +15,20 @@ A leather wallet holding four payment cards, built with React, Vite and Tailwind
 - The switch at the top swaps between a horizontal and a vertical wallet.
 
 All names, card numbers and balances are sample data.
+
+## Tech stack
+
+| Layer | What it uses |
+| --- | --- |
+| UI | [React](https://react.dev) 19, function components and hooks, plain JavaScript (JSX) |
+| Build | [Vite](https://vite.dev) 8 with `@vitejs/plugin-react` |
+| Styling | [Tailwind CSS](https://tailwindcss.com) 4 through `@tailwindcss/vite`, with design tokens in `@theme` and custom `@utility` recipes |
+| Motion | CSS transitions and 3D transforms driven by React state; no animation library |
+| Graphics | Inline SVG for icons, emblems, card artwork and the pocket shape; CSS gradients, masks and blend modes for card surfaces and light effects |
+| Type | Plus Jakarta Sans and Space Mono from Google Fonts |
+| Assets | One procedurally generated leather grain texture |
+
+No state library, router or backend: the whole app is one screen with its state in a single hook.
 
 ## Run it
 
@@ -43,6 +63,7 @@ src/
       CardBack.jsx         the two back designs
       Chip.jsx             gold, silver and flat chips
 public/textures/           leather grain image
+docs/                      demo recording used in this README
 ```
 
 ## Changing things
